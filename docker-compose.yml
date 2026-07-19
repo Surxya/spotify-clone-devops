@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   spotify-frontend:
-    image: node:18-alpine
+    image: YOUR_DOCKERHUB_USERNAME/spotify-frontend:latest
     container_name: spotify_frontend
     working_dir: /app
     volumes:
@@ -16,6 +16,7 @@ services:
     restart: always
 
   spotify-backend:
+    image: YOUR_DOCKERHUB_USERNAME/spotify-backend:latest
     build: ./backend
     container_name: spotify_backend
     ports:
