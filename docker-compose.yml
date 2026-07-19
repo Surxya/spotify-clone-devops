@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   spotify-frontend:
     image: node:18-alpine
@@ -6,7 +8,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - REACT_APP_API_URL=http://192.168.31.239:5000
+      - REACT_APP_API_URL=http://localhost/api
     restart: always
 
   spotify-backend:
@@ -24,6 +26,17 @@ services:
       - NODE_ENV=production
       - JWT_SECRET=SpotifyMegaSecretKey2026!
     restart: always
+
+  nginx:
+    image: nginx:alpine
+    container_name: spotify_nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - spotify-frontend
+      - spotify-backend
 
 volumes:
   spotify_media:
